@@ -1,0 +1,24 @@
+{
+  "name": "webqa-inovasi",
+  "version": "1.0.0",
+  "description": "Accessibility QA workspace for inovasi.or.id",
+  "private": true,
+  "scripts": {
+    "axe": "node scripts/run_axe.js",
+    "lighthouse": "node scripts/run_lighthouse.js",
+    "pa11y": "pa11y-ci --config pa11y-ci.json",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "devDependencies": {
+    "axe-core": "^4.8.0",
+    "@axe-core/puppeteer": "^4.10.0",
+    "puppeteer-core": "^23.11.1",
+    "lighthouse": "^11.0.0",
+    "pa11y": "^6.2.0",
+    "pa11y-ci": "^3.1.0",
+    "chrome-launcher": "^1.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

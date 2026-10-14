@@ -1,0 +1,20 @@
+{
+  "run_at": "2026-10-11T06:41:18",
+  "scope": "verifikasi akses saja (bukan caption/strultur/tag)",
+  "pdf_total": 166,
+  "pdf_accessible": 101,
+  "pdf_blocked": 65,
+  "pdf_blocked_status": {
+    "403": 65
+  },
+  "video_total": 173,
+  "video_accessible": 173,
+  "video_blocked": 0,
+  "video_iframe_no_title": 0,
+  "iframe_lain_total": 35,
+  "iframe_lain_tanpa_title": 35,
+  "link_out_bukan_embed": 3,
+  "http_requests": 0,
+  "errors": 0,
+  "elapsed_sec": 2.9
+}

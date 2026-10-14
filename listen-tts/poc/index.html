@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PoC Web Speech API - Listen Feature</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 1rem; }
+  .controls { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; padding: 1rem; background: #f5f5f5; border-radius: 8px; }
+  button { padding: 0.5rem 1rem; border: 1px solid #ccc; background: white; border-radius: 4px; cursor: pointer; font-size: 1rem; }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  button:focus-visible { outline: 3px solid #0066cc; outline-offset: 2px; }
+  select { padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; }
+  input[type="range"] { flex: 1; min-width: 100px; }
+  .content { border: 1px solid #ddd; border-radius: 8px; padding: 1.5rem; min-height: 200px; }
+  .highlight { background: #fff3cd; border-radius: 2px; transition: background 0.1s; }
+  .highlight.current { background: #0066cc; color: white; }
+  .status { margin-top: 1rem; padding: 0.5rem; background: #e8f5e9; border-radius: 4px; font-size: 0.9rem; }
+  .status.error { background: #fdecea; color: #c62828; }
+  @media (prefers-reduced-motion: reduce) {
+    .highlight { transition: none; }
+  }
+</style>
+</head>
+<body>
+<h1>PoC Listen Feature - Web Speech API</h1>
+<p>Template: Artikel Detail | <a href="https://inovasi.or.id" target="_blank" rel="noopener">inovasi.or.id</a></p>
+
+<div class="controls" role="group" aria-label="Audio controls">
+  <button id="btnPlay" aria-label="Putar">▶ Putar</button>
+  <button id="btnPause" aria-label="Jeda" disabled>⏸ Jeda</button>
+  <button id="btnStop" aria-label="Berhenti" disabled>⏹ Berhenti</button>
+  <label for="voiceSelect">Suara: </label>
+  <select id="voiceSelect" aria-label="Pilih suara"></select>
+  <label for="rateInput">Kecepatan: </label>
+  <input type="range" id="rateInput" min="0.5" max="2" step="0.1" value="1" aria-label="Kecepatan bicara">
+  <span id="rateValue">1.0x</span>
+</div>
+
+<article class="content" id="content" aria-live="polite">
+  <header>
+    <h1>Inovasi OR.ID Luncurkan Inisiatif Aksesibilitas Baru</h1>
+    <p><time datetime="2024-01-15">15 Januari 2024</time> | Oleh: Tim Aksesibilitas</p>
+  </header>
+  <figure>
+    <img src="https://via.placeholder.com/800x400" alt="Tim Inovasi OR.ID saat peluncuran inisiatif aksesibilitas di kantor pusat Jakarta">
+    <figcaption>Gambar 1: Tim Inovasi OR.ID saat peluncuran inisiatif aksesibilitas</figcaption>
+  </figure>
+  <section>
+    <h2>Latar Belakang</h2>
+    <p>Inovasi OR.ID resmi meluncurkan inisiatif aksesibilitas digital yang bertujuan memastikan website dan aplikasi mereka inklusif untuk semua pengguna, termasuk penyandang disabilitas. Inisiatif ini mencakup audit menyeluruh berdasarkan standar WCAG 2.2 Level AA.</p>
+  </section>
+  <section>
+    <h2>Ruang Lingkup Audit</h2>
+    <p>Audit mencakup 10 kategori utama:</p>
+    <ol>
+      <li>Struktur aksesibilitas (heading, alt text, link, tabel, semantic HTML)</li>
+      <li>Navigasi keyboard dan focus visible</li>
+      <li>Kontras warna, text resize, mobile/reflow</li>
+      <li>Aksesibilitas form dan navigasi</li>
+      <li>Kompatibilitas screen reader (NVDA, VoiceOver, TalkBack)</li>
+      <li>Caption dan transcript multimedia</li>
+      <li>Aksesibilitas dokumen PDF</li>
+      <li>Pengujian otomatis dan manual</li>
+      <li>Mekanisme kontak dan feedback aksesibilitas</li>
+      <li>Feasibility fitur Listen/Text-to-Speech</li>
+    </ol>
+  </section>
+  <section>
+    <h2>Hasil Sementara</h2>
+    <p>Hasil audit otomatis menggunakan axe-core dan Lighthouse menunjukkan sekitar 40% Success Criteria WCAG tercover. Uji manual dengan screen reader masih diperlukan untuk mencapai kepatuhan penuh.</p>
+    <blockquote>
+      <p>"Aksesibilitas bukan fitur tambahan, tapi hak fundamental," kata Ketua Inovasi OR.ID.</p>
+    </blockquote>
+  </section>
+  <footer>
+    <p>Tags: <a href="#">aksesibilitas</a>, <a href="#">WCAG</a>, <a href="#">inklusif</a></p>
+  </footer>
+</article>
+
+<div class="status" id="status" aria-live="polite">Siap. Pilih suara dan klik Putar.</div>
+
+<script>
+(function() {
+  const content = document.getElementById('content');
+  const btnPlay = document.getElementById('btnPlay');
+  const btnPause = document.getElementById('btnPause');
+  const btnStop = document.getElementById('btnStop');
+  const voiceSelect = document.getElementById('voiceSelect');
+  const rateInput = document.getElementById('rateInput');
+  const rateValue = document.getElementById('rateValue');
+  const status = document.getElementById('status');
+
+  let utterance = null;
+  let voices = [];
+  let currentWordIndex = 0;
+  let words = [];
+  let isPlaying = false;
+
+  function setStatus(msg, isError = false) {
+    status.textContent = msg;
+    status.classList.toggle('error', isError);
+  }
+
+  function populateVoices() {
+    voices = speechSynthesis.getVoices();
+    voiceSelect.innerHTML = '';
+    let idVoiceFound = false;
+    voices.forEach((voice, i) => {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = `${voice.name} (${voice.lang}) ${voice.default ? '• Default' : ''}`;
+      if (voice.lang.startsWith('id') || voice.lang.startsWith('en')) {
+        opt.textContent += ' ✓';
+        if (!idVoiceFound && voice.lang.startsWith('id')) idVoiceFound = true;
+      }
+      voiceSelect.appendChild(opt);
+    });
+    if (voices.length === 0) {
+      setStatus('Tidak ada suara tersedia. Coba refresh halaman.', true);
+    } else if (!idVoiceFound) {
+      setStatus('Peringatan: Tidak ada suara Bahasa Indonesia terdeteksi. Gunakan fallback Cloud TTS untuk produksi.', true);
+    }
+  }
+
+  if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = populateVoices;
+  }
+  populateVoices();
+
+  function extractTextNodes(node) {
+    const result = [];
+    const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, {
+      acceptNode: (n) => {
+        const text = n.textContent.trim();
+        if (text.length > 0 && n.parentElement.closest('script, style, noscript') === null) {
+          return NodeFilter.FILTER_ACCEPT;
+        }
+        return NodeFilter.FILTER_REJECT;
+      }
+    });
+    while (walker.nextNode()) {
+      result.push(walker.currentNode);
+    }
+    return result;
+  }
+
+  function tokenizeText(text) {
+    return text.match(/\S+\s*/g) || [];
+  }
+
+  function prepareHighlighting() {
+    const textNodes = extractTextNodes(content);
+    words = [];
+    textNodes.forEach(node => {
+      const tokens = tokenizeText(node.textContent);
+      let offset = 0;
+      tokens.forEach((token, i) => {
+        words.push({
+          node: node,
+          token: token,
+          startOffset: offset,
+          endOffset: offset + token.length,
+          index: words.length
+        });
+        offset += token.length;
+      });
+    });
+  }
+
+  function highlightWord(index) {
+    words.forEach((w, i) => {
+      if (i === index) {
+        w.node.textContent = w.node.textContent.replace(w.token, `<mark class="highlight current">${w.token}</mark>`);
+      } else if (i < index) {
+        w.node.textContent = w.node.textContent.replace(w.token, `<mark class="highlight">${w.token}</mark>`);
+      }
+    });
+    const marks = content.querySelectorAll('mark.highlight');
+    marks.forEach((m, i) => {
+      m.classList.toggle('current', i === index);
+    });
+    if (index < words.length) {
+      const currentMark = content.querySelector('mark.current');
+      if (currentMark) currentMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  function clearHighlighting() {
+    content.querySelectorAll('mark.highlight').forEach(m => {
+      m.outerHTML = m.textContent;
+    });
+  }
+
+  function speak() {
+    if (isPlaying) return;
+    if (speechSynthesis.speaking && speechSynthesis.paused) {
+      speechSynthesis.resume();
+      isPlaying = true;
+      updateButtons();
+      setStatus('Dilanjutkan...');
+      return;
+    }
+
+    prepareHighlighting();
+    const fullText = words.map(w => w.token).join('');
+    utterance = new SpeechSynthesisUtterance(fullText);
+    const voiceIdx = parseInt(voiceSelect.value, 10);
+    if (!isNaN(voiceIdx) && voices[voiceIdx]) {
+      utterance.voice = voices[voiceIdx];
+    }
+    utterance.rate = parseFloat(rateInput.value);
+    utterance.lang = voices[voiceIdx]?.lang || 'id-ID';
+
+    let wordIndex = 0;
+    utterance.onboundary = (event) => {
+      if (event.name === 'word' && wordIndex < words.length) {
+        highlightWord(wordIndex);
+        wordIndex++;
+      }
+    };
+
+    utterance.onstart = () => {
+      isPlaying = true;
+      updateButtons();
+      setStatus('Memutar...');
+    };
+
+    utterance.onend = () => {
+      isPlaying = false;
+      updateButtons();
+      setStatus('Selesai.');
+      setTimeout(clearHighlighting, 2000);
+    };
+
+    utterance.onerror = (e) => {
+      isPlaying = false;
+      updateButtons();
+      setStatus(`Error: ${e.error}`, true);
+      clearHighlighting();
+    };
+
+    speechSynthesis.speak(utterance);
+  }
+
+  function pause() {
+    if (speechSynthesis.speaking && !speechSynthesis.paused) {
+      speechSynthesis.pause();
+      isPlaying = false;
+      updateButtons();
+      setStatus('Dijeda.');
+    }
+  }
+
+  function stop() {
+    speechSynthesis.cancel();
+    isPlaying = false;
+    currentWordIndex = 0;
+    wordIndex = 0;
+    updateButtons();
+    clearHighlighting();
+    setStatus('Dihentikan.');
+  }
+
+  function updateButtons() {
+    btnPlay.disabled = isPlaying;
+    btnPause.disabled = !isPlaying;
+    btnStop.disabled = !isPlaying;
+    btnPlay.textContent = isPlaying ? '▶ Putar' : '▶ Putar';
+    btnPause.textContent = speechSynthesis.paused ? '▶ Lanjutkan' : '⏸ Jeda';
+  }
+
+  btnPlay.addEventListener('click', speak);
+  btnPause.addEventListener('click', pause);
+  btnStop.addEventListener('click', stop);
+
+  rateInput.addEventListener('input', () => {
+    rateValue.textContent = `${rateInput.value}x`;
+    if (utterance) utterance.rate = parseFloat(rateInput.value);
+  });
+
+  voiceSelect.addEventListener('change', () => {
+    if (utterance) utterance.voice = voices[parseInt(voiceSelect.value, 10)];
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && isPlaying) pause();
+  });
+
+  window.addEventListener('beforeunload', stop);
+})();
+</script>
+</body>
+</html>

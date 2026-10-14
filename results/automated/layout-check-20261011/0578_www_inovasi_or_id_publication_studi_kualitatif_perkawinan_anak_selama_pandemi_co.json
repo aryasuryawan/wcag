@@ -1,0 +1,265 @@
+{
+  "url": "https://www.inovasi.or.id/publication/studi-kualitatif-perkawinan-anak-selama-pandemi-covid-19-di-jawa-timur-nusa-tenggara-barat-dan-nusa-tenggara-timur",
+  "checkedAt": "2026-10-11T05:00:03.726Z",
+  "desktop1280": {
+    "viewportWidth": 1280,
+    "scrollWidth": 1280,
+    "horizontalScroll": false,
+    "offenders": [],
+    "focusableCount": 169,
+    "positiveTabindexCount": 0,
+    "firstFocusable": "button.",
+    "skipLink": {
+      "text": "Skip to Navigation",
+      "target": "navigation"
+    },
+    "smallTargets": [
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-decrease",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Kurangi Ukuran Font"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-increase",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Tingkatkan Ukuran Font"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-decrease",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Kurangi Tinggi Garis"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-increase",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Tingkatkan Tinggi Garis"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-decrease",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Kurangi Spasi Huruf"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-increase",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Tingkatkan Spasi Huruf"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-decrease",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Kurangi Skala Konten"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-increase",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Tingkatkan Skala Konten"
+      }
+    ],
+    "smallTargetCount": 8,
+    "smallTargetInlineExempt": 6,
+    "smallTargetSpacingExempt": 0,
+    "landmarks": {
+      "banner": 3,
+      "main": 1,
+      "nav": 7
+    }
+  },
+  "narrow320": {
+    "viewportWidth": 320,
+    "scrollWidth": 320,
+    "horizontalScroll": false,
+    "offenders": [],
+    "focusableCount": 169,
+    "positiveTabindexCount": 0,
+    "firstFocusable": "button.fy-navigation-close fy-off__close js-off__close",
+    "skipLink": {
+      "text": "Skip to Navigation",
+      "target": "navigation"
+    },
+    "smallTargets": [
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-decrease",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Kurangi Ukuran Font"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-increase",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Tingkatkan Ukuran Font"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-decrease",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Kurangi Tinggi Garis"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-increase",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Tingkatkan Tinggi Garis"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-decrease",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Kurangi Spasi Huruf"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-increase",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Tingkatkan Spasi Huruf"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-decrease",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Kurangi Skala Konten"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-increase",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Tingkatkan Skala Konten"
+      }
+    ],
+    "smallTargetCount": 8,
+    "smallTargetInlineExempt": 5,
+    "smallTargetSpacingExempt": 0,
+    "landmarks": {
+      "banner": 3,
+      "main": 1,
+      "nav": 7
+    }
+  },
+  "zoom200_640": {
+    "viewportWidth": 640,
+    "scrollWidth": 640,
+    "horizontalScroll": false,
+    "offenders": [],
+    "focusableCount": 169,
+    "positiveTabindexCount": 0,
+    "firstFocusable": "button.fy-navigation-close fy-off__close js-off__close",
+    "skipLink": {
+      "text": "Skip to Navigation",
+      "target": "navigation"
+    },
+    "smallTargets": [
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-decrease",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Kurangi Ukuran Font"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-increase",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Tingkatkan Ukuran Font"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-decrease",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Kurangi Tinggi Garis"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-increase",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Tingkatkan Tinggi Garis"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-decrease",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Kurangi Spasi Huruf"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-increase",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Tingkatkan Spasi Huruf"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-decrease",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Kurangi Skala Konten"
+      },
+      {
+        "tag": "button",
+        "cls": "accessibility-scale-increase",
+        "w": 23.5,
+        "h": 23.5,
+        "inline": false,
+        "text": "Tingkatkan Skala Konten"
+      }
+    ],
+    "smallTargetCount": 8,
+    "smallTargetInlineExempt": 6,
+    "smallTargetSpacingExempt": 0,
+    "landmarks": {
+      "banner": 3,
+      "main": 1,
+      "nav": 7
+    }
+  }
+}

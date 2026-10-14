@@ -1,0 +1,205 @@
+{
+  "generatedAt": "2026-10-11T13:06:43",
+  "axeDir": "axe-20261011",
+  "mediaDir": "media-access-20261011",
+  "ruleOfFinding": {
+    "A11Y-20261011-001": "link-name",
+    "A11Y-20261011-002": "aria-hidden-focus",
+    "A11Y-20261011-003": "landmark-no-duplicate-banner",
+    "A11Y-20261011-004": "landmark-unique",
+    "A11Y-20261011-005": "heading-order",
+    "A11Y-20261011-006": "aria-allowed-attr",
+    "A11Y-20261011-007": "aria-prohibited-attr",
+    "A11Y-20261011-008": "button-name",
+    "A11Y-20261011-009": "frame-title",
+    "A11Y-20261011-010": "color-contrast",
+    "A11Y-20261011-011": "image-alt",
+    "A11Y-20261011-012": "tabindex",
+    "A11Y-20261011-013": "aria-required-children",
+    "A11Y-20261011-014": "aria-required-parent",
+    "A11Y-20261011-015": "aria-allowed-role",
+    "A11Y-20261011-016": "page-has-heading-one",
+    "A11Y-20261011-017": "empty-heading",
+    "A11Y-20261011-018": "link-in-text-block",
+    "A11Y-20261011-019": "pdf-403",
+    "A11Y-20261011-020": "pdf-no-text-layer",
+    "A11Y-20261011-021": "pdf-not-tagged",
+    "A11Y-20261011-022": "pdf-no-language",
+    "A11Y-20261011-023": "pdf-no-title",
+    "A11Y-20261011-024": "layout-target-size",
+    "A11Y-20261011-025": "video-no-caption",
+    "A11Y-20261011-026": "video-caption-no-id",
+    "A11Y-20261011-027": "video-caption-auto-only",
+    "A11Y-20261011-028": "video-login-required"
+  },
+  "urlCountPerRule": {
+    "aria-allowed-attr": 169,
+    "aria-allowed-role": 1,
+    "aria-prohibited-attr": 169,
+    "button-name": 123,
+    "color-contrast": 22,
+    "heading-order": 618,
+    "link-name": 738,
+    "aria-hidden-focus": 737,
+    "landmark-no-duplicate-banner": 737,
+    "landmark-unique": 737,
+    "page-has-heading-one": 42,
+    "frame-title": 35,
+    "aria-required-children": 1,
+    "aria-required-parent": 1,
+    "tabindex": 32,
+    "link-in-text-block": 1,
+    "image-alt": 8,
+    "empty-heading": 1
+  },
+  "nodeCountPerRule": {
+    "aria-allowed-attr": 169,
+    "aria-allowed-role": 8,
+    "aria-prohibited-attr": 169,
+    "button-name": 123,
+    "color-contrast": 467,
+    "heading-order": 662,
+    "link-name": 3213,
+    "aria-hidden-focus": 737,
+    "landmark-no-duplicate-banner": 737,
+    "landmark-unique": 737,
+    "page-has-heading-one": 43,
+    "frame-title": 35,
+    "aria-required-children": 1,
+    "aria-required-parent": 2,
+    "tabindex": 32,
+    "link-in-text-block": 2,
+    "image-alt": 19,
+    "empty-heading": 1
+  },
+  "templatesPerRule": {
+    "aria-allowed-attr": {
+      "page": 1,
+      "featured-article": 1,
+      "publication": 167
+    },
+    "aria-allowed-role": {
+      "page": 1
+    },
+    "aria-prohibited-attr": {
+      "page": 1,
+      "featured-article": 1,
+      "publication": 167
+    },
+    "button-name": {
+      "page": 1,
+      "featured-article": 1,
+      "publication": 121
+    },
+    "color-contrast": {
+      "page": 19,
+      "publication": 3
+    },
+    "heading-order": {
+      "page": 30,
+      "publication": 528,
+      "featured-article": 6,
+      "gallery": 6,
+      "opportunity-category": 1,
+      "opportunity": 4,
+      "press-release": 5,
+      "publication-category": 15,
+      "resources": 4,
+      "unknown": 1,
+      "where-we-work": 8,
+      "where-we-works": 10
+    },
+    "link-name": {
+      "page": 36,
+      "publication": 641,
+      "featured-article": 6,
+      "gallery": 6,
+      "opportunity-category": 1,
+      "opportunity": 4,
+      "press-release": 5,
+      "publication-category": 16,
+      "resources": 4,
+      "unknown": 1,
+      "where-we-work": 8,
+      "where-we-works": 10
+    },
+    "aria-hidden-focus": {
+      "page": 35,
+      "publication": 641,
+      "featured-article": 6,
+      "gallery": 6,
+      "opportunity-category": 1,
+      "opportunity": 4,
+      "press-release": 5,
+      "publication-category": 16,
+      "resources": 4,
+      "unknown": 1,
+      "where-we-work": 8,
+      "where-we-works": 10
+    },
+    "landmark-no-duplicate-banner": {
+      "page": 35,
+      "publication": 641,
+      "featured-article": 6,
+      "gallery": 6,
+      "opportunity-category": 1,
+      "opportunity": 4,
+      "press-release": 5,
+      "publication-category": 16,
+      "resources": 4,
+      "unknown": 1,
+      "where-we-work": 8,
+      "where-we-works": 10
+    },
+    "landmark-unique": {
+      "page": 35,
+      "publication": 641,
+      "featured-article": 6,
+      "gallery": 6,
+      "opportunity-category": 1,
+      "opportunity": 4,
+      "press-release": 5,
+      "publication-category": 16,
+      "resources": 4,
+      "unknown": 1,
+      "where-we-work": 8,
+      "where-we-works": 10
+    },
+    "page-has-heading-one": {
+      "page": 34,
+      "where-we-work": 8
+    },
+    "frame-title": {
+      "page": 1,
+      "opportunity": 1,
+      "publication": 33
+    },
+    "aria-required-children": {
+      "opportunity": 1
+    },
+    "aria-required-parent": {
+      "opportunity": 1
+    },
+    "tabindex": {
+      "opportunity": 1,
+      "publication": 31
+    },
+    "link-in-text-block": {
+      "publication": 1
+    },
+    "image-alt": {
+      "publication": 8
+    },
+    "empty-heading": {
+      "publication": 1
+    }
+  },
+  "scanned": 738,
+  "layout": {
+    "reflow_320_gagal": 0,
+    "zoom200_gagal": 0,
+    "skip_link_hilang": 0,
+    "url_diperiksa": 738
+  },
+  "layoutDir": "layout-check-20261011"
+}

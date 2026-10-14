@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Python virtualenv (requirements.txt yang di-track, bukan Lib/)
+Lib/
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+
+# Environment / secrets
+.env
+.env.*
+*.pem
+*.key
+
+# Komersial - jangan pernah di-commit (harga, tarif, HPS)
+Penawaran_*.xlsx
+Tasklist_Estimasi_*.xlsx
+scripts/patch_offer_*.py
+
+# Logs
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/

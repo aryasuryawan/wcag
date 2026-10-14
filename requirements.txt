@@ -1,0 +1,26 @@
+# Requirements for Python Scripts
+
+# Core
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+cssselect>=1.2.0
+
+# PDF Processing
+PyMuPDF>=1.23.0
+pdfplumber>=0.10.0
+
+# Data Processing
+pandas>=2.0.0
+openpyxl>=3.1.0
+
+# Date/Time
+python-dateutil>=2.8.0
+
+# Utilities
+tqdm>=4.66.0
+pyyaml>=6.0.0
+
+# Optional: for async crawling
+# aiohttp>=3.9.0
+# aiofiles>=23.0.0

@@ -1,0 +1,19 @@
+rule,sc,nama_sc,level,url_terdampak,node,critical,serious,moderate,minor,contoh_target
+link-name,2.4.4,Link Purpose (In Context),A,738,3213,0,738,0,0,.fy-canvas > .fy-header.fy-header-left.is-on-top > .fy-header-container > .fy-flex-container-center.fy-flex-gutter-0.fy-
+aria-hidden-focus,4.1.2,Name, Role,737,737,0,737,0,0,.fy-pswp
+landmark-no-duplicate-banner,1.3.1,Info and Relationships,A,737,737,0,0,737,0,.fy-canvas > .fy-header.fy-header-left.is-on-top
+landmark-unique,1.3.1,Info and Relationships,A,737,737,0,0,737,0,.fy-canvas > .fy-header.fy-header-left.is-on-top
+heading-order,1.3.1,Info and Relationships,A,618,662,0,0,618,0,h4
+aria-allowed-attr,4.1.2,Name, Role,169,169,169,0,0,0,#\36 49424024
+aria-prohibited-attr,4.1.2,Name, Role,169,169,0,169,0,0,#\36 49424024
+button-name,4.1.2,Name, Role,123,123,123,0,0,0,#\36 49424024
+page-has-heading-one,1.3.1,Info and Relationships,A,42,43,0,0,42,0,#top
+frame-title,4.1.2,Name, Role,35,35,0,35,0,0,"iframe[width=""400""]"
+tabindex,2.4.3,Focus Order,A,32,32,0,32,0,0,.pdfembed-iframe
+color-contrast,1.4.3,Contrast (Minimum),AA,22,467,0,22,0,0,".no-thumbnail > .dpt-entry-wrapper > .sub-entry > .dpt-title > .dpt-title-link[rel=""bookmark""]"
+image-alt,1.1.1,Non-text Content,A,8,19,8,0,0,0,"iframe[width=""100%""]"
+aria-allowed-role,4.1.2,Name, Role,1,8,0,0,0,1,.swiper-slide-prev
+aria-required-children,1.3.1,Info and Relationships,A,1,1,1,0,0,0,.pdfembed-iframe
+aria-required-parent,1.3.1,Info and Relationships,A,1,2,1,0,0,0,.pdfembed-iframe
+link-in-text-block,1.4.1,Use of Color,A,1,2,0,1,0,0,"a[href$=""letsreadasia.org/""]"
+empty-heading,,,,1,1,0,0,0,1,.wp-block-heading
