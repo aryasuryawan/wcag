@@ -67,6 +67,35 @@ CEK = [
     "Ada cara melapor masalah aksesibilitas",
 ]
 
+# Alat yang dipakai untuk tiap pemeriksaan (baris sepadan dengan daftar CEK)
+ALAT = [
+    "Keyboard saja (Tab, Shift+Tab, Enter, Spasi, Esc, tombol panah). Tetikus tidak dipakai.",
+    "Keyboard saja + perekam layar (Windows: Win+Alt+R)",
+    "Keyboard + DevTools: klik kanan elemen, pilih Inspect",
+    "Perekam layar + DevTools tab Accessibility",
+    "Keyboard saja. Tekan Tab sekali di awal halaman.",
+    "NVDA: tekan NVDA+Insert+F7, pilih bagian Landmarks, hitung jumper banner",
+    "DevTools: ketik document.querySelectorAll('h1').length di Console, "
+    "atau NVDA tekan H",
+    "NVDA: tekan H berulang, tulis urutan judul yang terdengar",
+    "NVDA: tekan K, baca semua nama tautan tanpa melihat layar",
+    "NVDA: tekan K, dengarkan tautan pertama",
+    "DevTools tab Accessibility: klik Inspect, baca Computed Properties "
+    "(Name, Role)",
+    "DevTools: klik kanan isian, pilih Inspect, cari <label for=...>",
+    "NVDA + Speech Viewer (NVDA+F5) untuk merekam apa yang diucapkan",
+    "DevTools: klik kanan teks, Inspect > eyedropper. Catat 2 kode warna.",
+    "Browser: tekan Ctrl lalu + dua kali",
+    "DevTools: tekan Ctrl+Shift+M, set lebar 320 piksel",
+    "DevTools Inspect + NVDA tekan G untuk pindah ke gambar",
+    "Pemutar YouTube: klik tombol CC, putar di detik 0, tengah, dan hampir akhir",
+    "Adobe Acrobat Reader: Tools > Accessibility > Check PDF Accessibility",
+    "Pemutar video + Windows: Settings > Accessibility > Visual effects > "
+    "Animation effects OFF",
+    "DevTools: klik kanan html, Inspect, lihat atribut lang",
+    "Cek kaki halaman. NVDA untuk memastikan tautannya terbaca.",
+]
+
 # (jenis halaman, potongan alamat untuk dicari di inventory/heuristics.csv)
 DAFTAR_54 = [
     ("Beranda", "/"),
@@ -169,13 +198,25 @@ def baca_url_tersedia():
 
 def cari_alamat(tersedia, potongan):
     ujung = potongan if potongan.startswith("/") else "/" + potongan
-    cocok = sorted(
-        (k for k in tersedia if k.startswith(BASA) and k[len(BASA):].startswith(ujung)),
-        key=len,
-    )
+    if ujung.endswith("/") and len(ujung) > 1:
+        ujung = ujung[:-1]
+    if ujung == "/":
+        cocok = [k for k in tersedia if k in (BASA, BASA + "/")]
+    else:
+        cocok = [k for k in tersedia
+                 if k.startswith(BASA) and k[len(BASA):].startswith(ujung)]
     if not cocok:
         return None
-    return tersedia[cocok[0]]
+    return tersedia[sorted(cocok, key=len)[0]]
+
+
+def nama_pendek(alamat):
+    jalan = alamat.rstrip("/")[len(BASA):]
+    if not jalan or jalan == "":
+        return "beranda (Indonesia)"
+    if jalan == "/en":
+        return "beranda (Inggris)"
+    return jalan.rsplit("/", 1)[-1][:34]
 
 
 def susun_halaman():
@@ -187,7 +228,7 @@ def susun_halaman():
         if alamat is None:
             hilang.append(potongan)
             alamat = BASA + potongan
-        nama = alamat.rstrip("/").rsplit("/", 1)[-1] or "beranda"
+        nama = nama_pendek(alamat)
         hasil.append({
             "no": nomor,
             "jenis": jenis,
@@ -248,7 +289,7 @@ def catat_tanda(ws, kolom, awal, akhir):
 def buat_cara_pakai(wb):
     ws = wb.active
     ws.title = "00-Cara-Pakai"
-    set_lebar(ws, [4, 34, 96])
+    set_lebar(ws, [4, 34, 60, 60])
     buat_judul(ws, "Kartu Kerja Uji Manual (Versi Sederhana)", 3)
 
     blok = [
@@ -302,10 +343,17 @@ def buat_cara_pakai(wb):
     sel = ws.cell(row=baris, column=2, value="Pemeriksaan yang dipakai (22 buah)")
     sel.font = FONT_BOLD
     baris += 1
+    ws.cell(row=baris, column=2, value="No").font = FONT_BOLD
+    ws.cell(row=baris, column=3, value="Yang diperiksa").font = FONT_BOLD
+    ws.cell(row=baris, column=4, value="Alat yang dipakai").font = FONT_BOLD
+    baris += 1
     for nomor, teks in enumerate(CEK, start=1):
         ws.cell(row=baris, column=2, value=nomor).alignment = TENGAH
         ws.cell(row=baris, column=2).border = GARIS
         sel = ws.cell(row=baris, column=3, value=teks)
+        sel.alignment = ATAS
+        sel.border = GARIS
+        sel = ws.cell(row=baris, column=4, value=ALAT[nomor - 1])
         sel.alignment = ATAS
         sel.border = GARIS
         baris += 1
@@ -350,29 +398,35 @@ def buat_daftar_halaman(wb, halaman):
 
 def buat_jaringan_uji(wb, halaman, mulai, selesai, urutan):
     ws = wb.create_sheet(f"{urutan:02d}-Uji-Halaman-{mulai:02d}-{selesai:02d}")
-    set_lebar(ws, [5, 34] + [9] * (selesai - mulai + 1))
-    buat_judul(ws, f"Halaman {mulai} sampai {selesai}", 2 + (selesai - mulai + 1))
+    lebar = [5, 34, 40] + [9] * (selesai - mulai + 1)
+    set_lebar(ws, lebar)
+    jumlah_kolom = 3 + (selesai - mulai + 1)
+    buat_judul(ws, f"Halaman {mulai} sampai {selesai}", jumlah_kolom)
 
     ws.cell(row=2, column=2, value="Yang diperiksa").font = FONT_BOLD
+    ws.cell(row=2, column=3, value="Alat yang dipakai").font = FONT_BOLD
     for indeks in range(mulai, selesai + 1):
-        sel = ws.cell(row=2, column=2 + (indeks - mulai + 1), value=indeks)
+        kolom = 3 + (indeks - mulai + 1)
+        sel = ws.cell(row=2, column=kolom, value=indeks)
         sel.font = FONT_BOLD
         sel.alignment = TENGAH
         sel.fill = PatternFill("solid", fgColor=HILAU)
         sel.border = GARIS
-    style_header(ws, 3, 2 + (selesai - mulai + 1))
+    style_header(ws, 3, jumlah_kolom)
     ws.cell(row=3, column=1, value="No")
     ws.cell(row=3, column=2, value="Yang diperiksa")
+    ws.cell(row=3, column=3, value="Alat yang dipakai")
 
     baris = 4
     for nomor, teks in enumerate(CEK, start=1):
         ws.cell(row=baris, column=1, value=nomor)
         ws.cell(row=baris, column=2, value=teks)
+        ws.cell(row=baris, column=3, value=ALAT[nomor - 1])
         baris += 1
     akhir_cek = baris - 1
-    style_isian(ws, 4, akhir_cek, 2 + (selesai - mulai + 1))
+    style_isian(ws, 4, akhir_cek, jumlah_kolom)
     for indeks in range(mulai, selesai + 1):
-        kolom = 2 + (indeks - mulai + 1)
+        kolom = 3 + (indeks - mulai + 1)
         ws.cell(row=3, column=kolom, value=indeks)
         validasi = DataValidation(type="list", formula1=TANDA, allow_blank=True)
         ws.add_data_validation(validasi)
@@ -394,7 +448,7 @@ def buat_jaringan_uji(wb, halaman, mulai, selesai, urutan):
     baris += 1
     ws.cell(row=baris, column=2, value="Jumlah sudah diuji").font = FONT_BOLD
     for indeks in range(mulai, selesai + 1):
-        kolom = 2 + (indeks - mulai + 1)
+        kolom = 3 + (indeks - mulai + 1)
         huruf = get_column_letter(kolom)
         sel = ws.cell(row=baris - 1, column=kolom,
                       value=f'=COUNTIF({huruf}4:{huruf}{akhir_cek},"G")')
@@ -404,8 +458,8 @@ def buat_jaringan_uji(wb, halaman, mulai, selesai, urutan):
                       value=f'=COUNTIF({huruf}4:{huruf}{akhir_cek},"L")'
                             f'+COUNTIF({huruf}4:{huruf}{akhir_cek},"G")')
         sel.alignment = TENGAH
-    ws.freeze_panes = "C4"
-    return akhir_cek
+    ws.freeze_panes = "D4"
+    return ws.title
 
 
 def buat_daftar_temuan(wb):
@@ -472,7 +526,7 @@ def buat_rekap(wb, halaman, kelompok):
         for nama_sheet, mulai, selesai in kelompok:
             if not mulai <= item["no"] <= selesai:
                 continue
-            huruf = get_column_letter(3 + (item["no"] - mulai))
+            huruf = get_column_letter(4 + (item["no"] - mulai))
             bagian_gagal.append(f"'{nama_sheet}'!{huruf}26")
             bagian_uji.append(f"'{nama_sheet}'!{huruf}27")
         if bagian_gagal:

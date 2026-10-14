@@ -81,8 +81,12 @@ KETERANGAN = [
      "Semua contoh ada di berkas ini (contoh-pengisian.xlsx). "
      "Berkas kerja sungguhan tetap kosong."),
     ("Contoh tanda di sheet uji",
-     "Angka menunjukkan nomor pemeriksaan dari daftar 22 pemeriksaan. "
+     "Kolom Alat yang dipakai menjelaskan alat untuk setiap baris. "
+     "Kolom paling kiri adalah nomor pemeriksaan dari daftar 22 pemeriksaan. "
      "L berarti Lolos, G berarti Gagal, T berarti Tidak berlaku."),
+    ("Alat yang paling sering dipakai",
+     "Keyboard dan NVDA. DevTools hanya dipakai untuk melihat kode dan nama tombol. "
+     "Perekam layar dipakai sebagai bukti."),
     ("Contoh tanda G",
      "Tanda G selalu harus punya baris di sheet Daftar Temuan. "
      "Kolom Halaman diisi nomor halaman dari sheet Daftar Halaman."),
@@ -158,29 +162,32 @@ def isi_daftar_halaman(wb, halaman):
 def isi_sheet_uji(wb):
     halaman_terisi = sorted(CONTOH_TANDA)
     ws = wb.create_sheet("02-Uji-Contoh")
-    sederhana.set_lebar(ws, [5, 40, 12, 12, 12])
-    sederhana.buat_judul(ws, "Contoh Pengisian Sheet Uji", 5)
+    sederhana.set_lebar(ws, [5, 38, 42, 11, 11, 11])
+    sederhana.buat_judul(ws, "Contoh Pengisian Sheet Uji", 6)
     ws.cell(row=2, column=2, value="Yang diperiksa").font = sederhana.FONT_BOLD
-    for urutan, nomor in enumerate(halaman_terisi, start=3):
+    ws.cell(row=2, column=3, value="Alat yang dipakai").font = sederhana.FONT_BOLD
+    for urutan, nomor in enumerate(halaman_terisi, start=4):
         sel = ws.cell(row=2, column=urutan, value=f"Halaman {nomor}")
         sel.font = sederhana.FONT_BOLD
         sel.alignment = sederhana.TENGAH
         sel.fill = PatternFill("solid", fgColor=sederhana.HILAU)
         sel.border = sederhana.GARIS
-    sederhana.style_header(ws, 3, 5)
+    sederhana.style_header(ws, 3, 6)
     ws.cell(row=3, column=1, value="No")
     ws.cell(row=3, column=2, value="Yang diperiksa")
+    ws.cell(row=3, column=3, value="Alat yang dipakai")
     baris = 4
     for nomor, teks in enumerate(sederhana.CEK, start=1):
         ws.cell(row=baris, column=1, value=nomor)
         ws.cell(row=baris, column=2, value=teks)
-        for urutan, nomor_halaman in enumerate(halaman_terisi, start=3):
+        ws.cell(row=baris, column=3, value=sederhana.ALAT[nomor - 1])
+        for urutan, nomor_halaman in enumerate(halaman_terisi, start=4):
             ws.cell(row=baris, column=urutan,
                     value=CONTOH_TANDA[nomor_halaman].get(nomor, ""))
         baris += 1
     akhir = baris - 1
-    sederhana.style_isian(ws, 4, akhir, 5)
-    for baris_sel in ws.iter_rows(min_row=4, max_row=akhir, min_col=3, max_col=5):
+    sederhana.style_isian(ws, 4, akhir, 6)
+    for baris_sel in ws.iter_rows(min_row=4, max_row=akhir, min_col=4, max_col=6):
         for sel in baris_sel:
             nilai = sel.value
             if nilai == "G":
@@ -197,14 +204,14 @@ def isi_sheet_uji(wb):
     baris += 1
     ws.cell(row=baris, column=2,
             value="Jumlah sudah diuji").font = sederhana.FONT_BOLD
-    for urutan, nomor_halaman in enumerate(halaman_terisi, start=3):
+    for urutan in range(4, 4 + len(halaman_terisi)):
         huruf = get_column_letter(urutan)
         ws.cell(row=baris - 1, column=urutan,
                 value=f'=COUNTIF({huruf}4:{huruf}{akhir},"G")')
         ws.cell(row=baris, column=urutan,
                 value=f'=COUNTIF({huruf}4:{huruf}{akhir},"L")'
                       f'+COUNTIF({huruf}4:{huruf}{akhir},"G")')
-    ws.freeze_panes = "C4"
+    ws.freeze_panes = "D4"
 
 
 def isi_daftar_temuan(wb):
