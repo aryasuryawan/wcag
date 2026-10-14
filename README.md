@@ -41,7 +41,9 @@ Workspace untuk audit aksesibilitas website https://inovasi.or.id berdasarkan WC
 │   ├── manual-checklist.md
 │   ├── screen-reader-script.md
 │   └── kertas-kerja/
-│       ├── kertas-kerja-manual.xlsx   # seluruh kertas kerja dalam 1 file (12 sheet)
+│       ├── kertas-kerja-sederhana.xlsx  # 54 halaman utama, 22 pemeriksaan
+│       ├── contoh-pengisian.xlsx        # contoh cara mengisi
+│       ├── kertas-kerja-manual.xlsx     # versi detail, 12 sheet
 │       └── README.md
 ├── listen-tts/
 │   ├── comparison.md
