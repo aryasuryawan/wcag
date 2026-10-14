@@ -36,9 +36,13 @@ Workspace untuk audit aksesibilitas website https://inovasi.or.id berdasarkan WC
 │   ├── findings.csv
 │   └── findings-template.md
 ├── testing/
+│   ├── PANDUAN-MANUAL-TEST.md   # panduan uji manual untuk tim (2 orang)
 │   ├── test-plan.md
 │   ├── manual-checklist.md
-│   └── screen-reader-script.md
+│   ├── screen-reader-script.md
+│   └── kertas-kerja/
+│       ├── kertas-kerja-manual.xlsx   # seluruh kertas kerja dalam 1 file (12 sheet)
+│       └── README.md
 ├── listen-tts/
 │   ├── comparison.md
 │   └── poc/

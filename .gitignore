@@ -28,6 +28,11 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 
+# Berkas sementara Excel / Office
+~$*
+~$*.xlsx
+.~lock.*#
+
 # Editor
 .vscode/
 .idea/

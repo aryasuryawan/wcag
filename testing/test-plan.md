@@ -2,6 +2,15 @@
 
 Matrix pengujian untuk audit aksesibilitas inovasi.or.id. Baseline: WCAG 2.2 Level AA.
 
+> **Dokumen ini sudah diganti.** Untuk pengujian manual, pakai:
+>
+> - Panduan: [`PANDUAN-MANUAL-TEST.md`](PANDUAN-MANUAL-TEST.md)
+> - Kertas kerja: [`kertas-kerja/kertas-kerja-manual.xlsx`](kertas-kerja/kertas-kerja-manual.xlsx)
+>
+> Dokumen ini disimpan karena bagian **Matriks Browser & Assistive Technology** dan
+> **Prosedur Uji** di bawah masih dipakai sebagai acuan. Bagian yang bicara soal
+> jumlah template sudah tidak benar dan tidak dipakai lagi.
+
 ---
 
 ## Matriks Browser & Assistive Technology
@@ -18,7 +27,14 @@ Matrix pengujian untuk audit aksesibilitas inovasi.or.id. Baseline: WCAG 2.2 Lev
 
 ## Cakupan Uji per Template
 
-Dari `inventory/templates.md` (akan diisi setelah crawl). Target: **8 template** (sesuai asumsi xlsx).
+> **Bagian ini kedaluwarsa.** Target sebenarnya bukan 8 template, melainkan **13 jenis
+> halaman** hasil crawl: 641 Detail Publikasi, 36 Halaman Biasa, 16 Arsip Publikasi,
+> 10 Wilayah Kerja slug jamak, 8 Detail Wilayah Kerja, 6 Artikel Unggulan, 6 Galeri,
+> 5 Siaran Pers, 4 Detail Peluang, 4 Sumber Daya, 1 Arsip Peluang, dan 2 beranda.
+> Daftar lengkap ada di `inventory/templates.md`. Status pengujian dicatat di
+> sheet `01-Koordinasi` pada berkas Excel.
+
+Tabel lama di bawah tidak dipakai lagi.
 
 | Template | Halaman Contoh | Keyboard | Focus | Kontras | Reflow | Form | SR (NVDA) | SR (VoiceOver) | SR (TalkBack) |
 |----------|----------------|----------|-------|---------|--------|------|-----------|----------------|---------------|
